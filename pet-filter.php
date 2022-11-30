@@ -21,7 +21,7 @@ class PetFilter
         $this->tableName = $wpdb->prefix . "pets";
 
         add_action('activate_pets-sql/pet-filter.php', array($this, 'onActivate'));
-        add_action('admin_head', array($this, 'onAdminRefresh'));
+        // add_action('admin_head', array($this, 'onAdminRefresh'));
         add_action('wp_enqueue_scripts', array($this, 'loadAssets'));
         add_filter('template_include', array($this, 'loadTemplate'), 99);
     }
@@ -60,12 +60,14 @@ class PetFilter
 
     function onAdminRefresh()
     {
-        // echo "bla";
+        global $wpdb;
+        $wpdb->insert($this->tableName, generatePet());
+        // $this->populateFast();
     }
 
     function populateFast()
     {
-        $query = "INSERT INTO $this->tablename (`species`, `birthyear`, `petweight`, `favfood`, `favhobby`, `favcolor`, `petname`) VALUES ";
+        $query = "INSERT INTO $this->tableName (`species`, `birthyear`, `petweight`, `favfood`, `favhobby`, `favcolor`, `petname`) VALUES ";
         $numberofpets = 100000;
         for ($i = 0; $i < $numberofpets; $i++) {
             $pet = generatePet();
