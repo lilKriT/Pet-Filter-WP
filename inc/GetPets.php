@@ -16,7 +16,11 @@ class GetPets
         $query .= $this->createWhereText();
         $query .= " LIMIT 100";
 
+        $countQuery = "SELECT COUNT(*) FROM $tableName ";
+        $countQuery .= $this->createWhereText();
+
         // You can use args instead of placeholders
+        $this->count = $wpdb->get_var($wpdb->prepare($countQuery, $this->placeholders));
         $this->pets = $wpdb->get_results($wpdb->prepare($query, $this->placeholders));
     }
 
