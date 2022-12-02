@@ -44,6 +44,17 @@ get_header(); ?>
         ?>
     </table>
 
+    <?php
+    if (current_user_can("administrator")) { ?>
+        <form action="<?php echo esc_url(admin_url("admin-post.php")); ?>" class="create-pet-form" method="POST">
+            <p>Enter the name of a new pet</p>
+            <input type="hidden" name="action" value="createpet">
+            <input type="text" name="incomingpetname" placeholder="Name...">
+            <button>Add Pet</button>
+        </form>
+    <? }
+    ?>
+
 </div>
 
 <?php get_footer(); ?>
