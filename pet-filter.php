@@ -28,6 +28,10 @@ class PetFilter
         // For adding pets
         add_action("admin_post_createpet", array($this, "createPet"));
         add_action("admin_post_nopriv_createpet", array($this, "createPet"));
+
+        // For deleting pets
+        add_action("admin_post_deletepet", array($this, "deletePet"));
+        add_action("admin_post_nopriv_deletepet", array($this, "deletePet"));
     }
 
     function createPet()
@@ -37,10 +41,24 @@ class PetFilter
             $pet['petname'] = sanitize_text_field($_POST['incomingpetname']);
             global $wpdb;
             $wpdb->insert($this->tableName, $pet);
-            wp_redirect(site_url("/pet-adoption"));
+            wp_safe_redirect(site_url("/pet-adoption"));
         } else {
-            wp_redirect(site_url());
+            wp_safe_redirect(site_url());
         }
+        exit;
+    }
+
+    function deletePet()
+    {
+        if (current_user_can('administrator')) {
+            $id = sanitize_text_field($_POST['idtodelete']);
+            global $wpdb;
+            $wpdb->delete($this->tableName, array('id' => $id));
+            wp_safe_redirect(site_url("/pet-adoption"));
+        } else {
+            wp_safe_redirect(site_url());
+        }
+        exit;
     }
 
     function loadAssets()

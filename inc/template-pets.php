@@ -46,7 +46,7 @@ get_header(); ?>
                     <td style="text-align: center">
                         <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST">
                             <input type="hidden" name="action" value="deletepet">
-                            <input type="hidden" name="idtodelete" value="<?php $pet->id; ?>">
+                            <input type="hidden" name="idtodelete" value="<?php echo $pet->id; ?>">
                             <button class="delete-pet-button">X</button>
                         </form>
                     </td>
