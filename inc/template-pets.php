@@ -17,7 +17,7 @@ get_header(); ?>
 
 <div class="container container--narrow page-section">
 
-    <p>This page took <strong><?php echo timer_stop(); ?></strong> seconds to prepare. Found <strong><?php echo $getPets->count; ?></strong> results (showing the first <?php echo count($getPets->pets) ?>).</p>
+    <p>This page took <strong><?php echo timer_stop(); ?></strong> seconds to prepare. Found <strong><?php echo number_format($getPets->count); ?></strong> results (showing the first <?php echo count($getPets->pets) ?>).</p>
 
     <table class="pet-adoption-table">
         <tr>
